@@ -47,11 +47,13 @@ export default {
   },
 
   async checkSufixo({ body }: RequestCustom, res: Response) {
-    
-    const validaSufixo = await checkSufixoContrato({
-      sufixo: body.sufixo.toLowerCase(),
-    });
 
-    return res.status(200).send(validaSufixo);
+    const validateSuffix = await checkSufixoContrato({
+      sufixo: (body.sufixo || '').replace(/[^A-Za-z0-9]+/g, '').toLowerCase(),
+    });
+    
+    
+
+    return res.status(200).send(validateSuffix);
   },
 };
