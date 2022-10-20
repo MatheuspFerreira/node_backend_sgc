@@ -25,6 +25,7 @@ export function createToken(user: ITokenUser, customConfigs: any = {}) {
 export function verifyToken(token: string) {
   try {
     // @todo: Verificar se o usuário ainda existe
+    
     return Jwt.verify(token, jwt.secret);
   } catch (err) {
     throw new UnauthorizedError('Não autorizado');

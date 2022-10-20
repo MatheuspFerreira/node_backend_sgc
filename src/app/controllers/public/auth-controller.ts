@@ -13,10 +13,12 @@ export default {
   },
 
   async verify({ query }: Request, res: Response) {
-    await verify({
+    const user = await verify({
       token: query.at,
     });
 
-    return res.status(204).send();
+    console.log(user)
+
+    return res.status(200).send(user);
   },
 };
