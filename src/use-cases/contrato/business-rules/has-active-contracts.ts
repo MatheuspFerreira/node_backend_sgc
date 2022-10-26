@@ -35,8 +35,8 @@ export default async function hasActiveContracts(
     throw createHttpError(
       422,
       `
-      Este cliente atualmente já é atendido por outro revendedor autorizado.
-      Para mais informações busque apoio de nossa equipe comercial.
+      Este cliente é atendido por outro revendedor autorizado.
+      Para mais informações, busque apoio de nossa equipe comercial.
     `,
       cliente
     );

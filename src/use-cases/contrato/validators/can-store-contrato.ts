@@ -6,7 +6,7 @@ export const createContract = Joi.object({
   tipoDoc: Joi.string().valid('cnpj', 'cpf', 'cei').required(),
   cnpj: Joi.when('tipoDoc', {
     is: 'cnpj',
-    then: Joi.document().trim().regex(/^\d+$/).cnpj().required(),
+    then: Joi.document().trim().regex(/^\d+$/).required(),
   })
     .when('tipoDoc', {
       is: 'cpf',
