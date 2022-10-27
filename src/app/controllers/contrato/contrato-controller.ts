@@ -38,12 +38,24 @@ export default {
       requester,
     });
 
-    return res.status(200).json(cliente);
+    if(cliente) {
+      return res.status(200).json(cliente);
+
+    }else {
+      return res.status(200).json(
+        {
+          message:'cliente não cadastrado, liberado para cadastro'
+        }
+      );
+
+    };
+
   },
 
   async store({ body, user: requester }: RequestCustom, res: Response) {
     const contract = await storeContract(body, requester);
     return res.status(201).json(contract);
+    
   },
 
   async checkSufixo({ body }: RequestCustom, res: Response) {
