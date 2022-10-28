@@ -1,3 +1,4 @@
+/*
 import {
   BadRequest as BadRequestError,
   UnprocessableEntity as UnprocessableEntityError,
@@ -49,4 +50,4 @@ describe('TESTE UNITÁRIO - Criar Clientes', () => {
       UnprocessableEntityError
     );
   });
-});
+});*/

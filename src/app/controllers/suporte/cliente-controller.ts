@@ -13,7 +13,7 @@ export default {
       },
       requester
     );
-
+      console.log(clientes)
     return res.status(200).json(clientes);
   },
 
@@ -53,6 +53,8 @@ export default {
       requester
     );
     console.log(cliente)
+
+    
 
     return res.status(200).json(cliente);
   },

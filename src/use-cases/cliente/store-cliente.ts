@@ -4,6 +4,8 @@ import ICreateCliente from './interfaces/store-cliente';
 import { Cliente } from '../../database/entities';
 import validator from './validators/store-cliente';
 import { podeLicenciarClientes } from '../../lib/authorizations';
+import { send } from 'process';
+import { clientes } from '../../database/mock/clientes';
 
 export default async function storeCliente(
   { data }: ICreateCliente,
@@ -22,7 +24,12 @@ export default async function storeCliente(
   });
 
   if (exists) {
-    throw new UnprocessableEntityError('Este cliente já está cadastrado');
+    //throw new UnprocessableEntityError({message:'Este cliente já está cadastrado',});
+    return {
+      message:'Este cliente já está cadastrado', 
+      data:exists
+    }
+    
   }
 
   const cliente = new Cliente();
@@ -46,5 +53,8 @@ export default async function storeCliente(
 
   await getConnection().manager.save(cliente);
 
-  return cliente;
+  return {
+    message:'cliente foi cadastrado', 
+    data:cliente
+  }
 }

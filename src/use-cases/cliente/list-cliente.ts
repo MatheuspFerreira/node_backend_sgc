@@ -34,6 +34,7 @@ export default async function listClientes(
 
   const results = await getRepository(Cliente).find(query);
 
+
   if (codrevenda) {
     return results.filter(
       (cliente) =>
