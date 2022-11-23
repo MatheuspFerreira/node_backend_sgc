@@ -13,6 +13,7 @@ interface ITokenUser {
 }
 
 export function createToken(user: ITokenUser, customConfigs: any = {}) {
+  console.log(user, 'from token')
   return {
     token: Jwt.sign({ ...user }, jwt.secret, {
       subject: user.id.toString(),

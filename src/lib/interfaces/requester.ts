@@ -3,4 +3,5 @@ export default interface IRequester {
   codtecnico?: string;
   name: string;
   type: string;
+  p:string
 }

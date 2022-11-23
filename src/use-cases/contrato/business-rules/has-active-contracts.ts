@@ -20,8 +20,11 @@ function hasActiveContract(contract: Contrato, codrevenda: number) {
 
 export default async function hasActiveContracts(
   cliente: Cliente,
-  requesterId: number
+  requesterId: number,
+  
 ) {
+
+
   // Se é um cliente já licenciado por outra revenda
   if (
     cliente &&

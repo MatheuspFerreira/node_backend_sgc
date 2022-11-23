@@ -22,7 +22,12 @@ export default async function canStore({
     },
     relations: ['contratos', 'contratos.contrato'],
   });
+  
+  if(requester.p.toString() === '**'){ // se for atendente da inspell, pode criar contrato mesmo pertecendo a outra revenda
+    
+    return cliente;
 
+  }
   // Se é um cliente já licenciado por outra revenda
   await hasActiveContracts(cliente, requester.id);
 

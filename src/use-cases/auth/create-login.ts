@@ -45,11 +45,15 @@ function checkUserType(revenda: any, tecnicoRevenda: any, atendente: any) {
 }
 
 function getPermissions(user: any, type: string) {
-  if (type !== 'tecnicoRevenda') {
+  
+  if (type !== 'tecnicoRevenda' && type !== 'revenda') {
+    return ['**'];
+  }else if(type === 'revenda'){
     return ['*'];
   }
 
   const permissions = [];
+  
 
   if (user.podeConsultarMeusClientes === 'S') {
     permissions.push('podeConsultarMeusClientes');
