@@ -19,10 +19,29 @@ export default async function listContract({
   });
 
    // Se for Atendente Inspell, consegue acessar todos os contratos cadastrados no banco de dados.
-  if(requester.p === '**'){
-    return getRepository(Contrato).findAndCount();
+  if(requester.p.toString() === '**'){
+    console.log('Listando contratos')
 
-  }
+    
+
+    const codrevenda = useCodigoRevenda(requester);
+
+    const query: FindManyOptions = {
+      skip: Number(page) * Number(limitPerPage),
+      take: Number(limitPerPage),
+      order: { createdAt: 'DESC' },
+      relations: ['cliente'],
+    };
+
+    
+    
+    return {
+      contratos: await getRepository(Contrato).findAndCount(query),
+      permission: requester.p
+
+    };
+
+  };
 
   // Só recebe os contratos criados por está revenda.
   await podeConsultarClientes(requester);
