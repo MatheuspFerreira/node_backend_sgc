@@ -8,8 +8,8 @@ const router = Router();
 router.get('/produtos', ProdutoController.list);
 
 // Clientes
-router.get('/clientes', ClienteController.list);
-router.get('/clientes/:codcliente', ClienteController.obtain);
+router.get('/clientes/:doc', ClienteController.list);
+router.get('/clientes/obtain/:codcliente', ClienteController.obtain);
 router.put('/clientes/:codcliente', ClienteController.update);
 router.post('/clientes', ClienteController.store);
 

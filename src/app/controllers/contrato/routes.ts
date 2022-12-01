@@ -10,5 +10,7 @@ router.delete('/:id', ContratoController.destroy);
 router.post('/', ContratoController.store);
 router.post('/condicoes', ContratoController.canStore);
 router.post('/condicoes/sufixo', ContratoController.checkSufixo);
+router.post('/atendente/find', ContratoController.filter);
+
 
 export default router;

@@ -35,7 +35,7 @@ export default async function listClientes(
   const results = await getRepository(Cliente).find(query);
 
 
-  if (codrevenda) {
+  /*if (codrevenda) {
     return results.filter(
       (cliente) =>
         cliente.contratos.length > 0 &&
@@ -48,7 +48,37 @@ export default async function listClientes(
           ['ativo', 'suspenso'].includes(contrato.status)
         )
     );
-  }
+  }*/
+  
+  if (codrevenda) {
+    const array = []
+
+    results.map((current)=> {
+      const contratos = []
+      let contador = 0
+      if(current.contratos.length > 0){
+
+        current.contratos.filter(callback => {
+          contador ++
+
+          if(callback.codrevenda === codrevenda){
+            contratos.push(callback)
+              
+          };
+          if(!array.includes(current) && contador === current.contratos.length && contratos.length > 0){
+            current.contratos = contratos
+            array.push(current)
+
+          };
+          
+        });
+
+      };
+      
+
+    });
+    return array;
+  };
 
   return results;
 }

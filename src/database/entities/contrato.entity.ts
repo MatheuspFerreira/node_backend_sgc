@@ -15,6 +15,9 @@ import Status from '../../lib/types/Status';
 
 @Entity('contratos')
 export default class Contrato {
+  static findAll(arg0: { order: { fantasia: string; }; where: { codcliente: number; }; relations: string[]; }) {
+      throw new Error('Method not implemented.');
+  }
   @PrimaryGeneratedColumn()
   id: number;
 

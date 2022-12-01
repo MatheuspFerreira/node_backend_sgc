@@ -1,4 +1,4 @@
-import { Forbidden as ForbiddenError } from 'http-errors';
+/*import { Forbidden as ForbiddenError } from 'http-errors';
 import listClientes from '../list-cliente';
 import { suporteDb } from '../../../database/db';
 import { truncateClientes } from '../../../database/factories/cliente-factory';
@@ -320,4 +320,4 @@ describe('TESTE UNITÁRIO - Listar Clientes', () => {
       )
     ).rejects.toThrow(ForbiddenError);
   });
-});
+});*/

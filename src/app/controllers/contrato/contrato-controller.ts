@@ -6,6 +6,7 @@ import storeContract from '../../../use-cases/contrato/store-contrato';
 import destroyContract from '../../../use-cases/contrato/destroy-contrato';
 import canStoreContract from '../../../use-cases/contrato/can-store-contrato';
 import checkSufixoContrato from '../../../use-cases/contrato/check-sufixo-contrato';
+import filterAtendente from '../../../use-cases/contrato/filter-contrato';
 
 export default {
   async list({ query, user: requester }: RequestCustom, res: Response) {
@@ -67,5 +68,12 @@ export default {
     
 
     return res.status(200).send(validateSuffix);
+  },
+
+  async filter({ body, user: requester }: RequestCustom, res: Response) {
+    const contract = await filterAtendente(body, requester);
+    
+    return res.status(201).json(contract);
+    
   },
 };
