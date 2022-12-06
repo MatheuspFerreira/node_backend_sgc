@@ -12,6 +12,7 @@ import authRoutes from './controllers/public/routes';
 import userRoutes from './controllers/usuario/routes';
 import suporteRoutes from './controllers/suporte/routes';
 import contratoRoutes from './controllers/contrato/routes';
+import revendaRoutes from './controllers/revenda/routes';
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use(authenticationHandler);
 app.use('/usuarios', userRoutes);
 app.use('/suporte', suporteRoutes);
 app.use('/contratos', contratoRoutes);
+app.use('/revenda', revendaRoutes);
 
 // Error handlers
 app.use(notFoundHandler);

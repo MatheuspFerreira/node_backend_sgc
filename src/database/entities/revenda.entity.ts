@@ -16,4 +16,7 @@ export default class Revenda {
 
   @Column({ type: 'text', name: 'ativa' })
   ativa: string;
+
+  @Column('text')
+  cnpj: string;
 }

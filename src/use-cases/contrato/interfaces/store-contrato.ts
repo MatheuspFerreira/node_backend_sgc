@@ -10,4 +10,5 @@ export default interface ICreateContract {
   codcliente: number;
   codproduto: number;
   contratoid?: number;
+  revenda:any
 }

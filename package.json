@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "@joi/date": "^2.1.0",
+    "axios": "^1.2.0",
     "cors": "^2.8.5",
     "cpf-cnpj-validator": "^1.0.3",
     "date-fns": "^2.23.0",
