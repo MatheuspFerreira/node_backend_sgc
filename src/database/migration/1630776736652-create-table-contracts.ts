@@ -50,6 +50,17 @@ export class createTableContracts1630776736652 implements MigrationInterface {
             type: 'timestamp',
             default: 'CURRENT_TIMESTAMP',
           },
+          {
+            name: 'id_ifitness_web',
+            type: 'integer',
+            isNullable: true,
+          },
+          {
+            name: 'tipo',
+            type: 'enum',
+            enum: ['principal', 'multi-unidade'],
+            default: `'principal'`,
+          },
         ],
       })
     );

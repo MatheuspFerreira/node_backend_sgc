@@ -34,7 +34,19 @@ export class addColumnsToTableContratos1638713631009
         type: 'integer',
         isNullable: false,
       }),
+      new TableColumn({
+        name: 'tipo',
+        type: 'varchar',
+        isNullable: false,
+      }),
+      new TableColumn({
+        name: 'id_ifitness_web',
+        type: 'varchar',
+        isNullable: false,
+      }),
+
     ]);
+
 
     await queryRunner.createForeignKey(
       'contratos',

@@ -25,7 +25,7 @@ export default class Contrato {
   dataInicio: Date;
 
   // Referência para o banco do cliente
-  @Column()
+  @Column({ name: 'sufixo' })
   sufixo: String;
 
   @Column({ name: 'admin_email' })
@@ -34,6 +34,18 @@ export default class Contrato {
   // Referências para o banco suporte
   @Column('integer')
   codrevenda: number;
+
+  // Referência para o banco no IFitness
+  @Column({ name: 'id_ifitness_web' })
+  id_ifitness_web: number;
+
+  @Column({
+    name: 'tipo',
+    type: 'enum',
+    enum: ['principal', 'multi-unidade'],
+    default: 'principal',
+  })
+  tipo: String;
 
   @Column({ name: 'codproduto', type: 'integer' })
   codproduto: number;

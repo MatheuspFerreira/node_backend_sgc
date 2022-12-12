@@ -3,7 +3,7 @@ import axios from 'axios';
 
 
 export default async function CreateContractApi (obj:any) { // Cria o contrato no banco de dados IFitness
-    console.log(obj)
+    //console.log(obj)
     try {
         const token = 'X/C2YXLrVOnQfs7amXytFazld107W5SIo4+Rz1VH9Ds=';
 
