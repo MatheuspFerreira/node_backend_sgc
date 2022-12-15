@@ -2,7 +2,7 @@ import { getRepository } from "typeorm"
 import { Revenda } from "../../database/entities"
 
 export default async function getAllRevendas (requester:any) {
-    //console.log()
+    console.log(requester.p)
     if(requester.p.toString() !== '**'){
         return {
             error:true,
@@ -16,7 +16,7 @@ export default async function getAllRevendas (requester:any) {
                 ativa:'T'
             }
         });
-        //console.log(allRevendas)
+        console.log(allRevendas)
     
         return {
             permission:requester.p,

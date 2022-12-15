@@ -3,22 +3,25 @@ import { NotFound as NotFoundError } from 'http-errors';
 import { Any, getConnection, getRepository } from 'typeorm';
 import { Contrato, Produto, Cliente, Revenda, Atendente } from '../../database/entities';
 import validator from './validators/store-contrato';
-import ICreateContract from './interfaces/store-contrato';
+//import ICreateContract from './interfaces/store-contrato';
 import IRequester from '../../lib/interfaces/requester';
 import { podeLicenciarClientes } from '../../lib/authorizations';
 import hasActiveContracts from './business-rules/has-active-contracts';
 import CreateContractApi from '../../lib/api/create-contract';
 
 
-
 export default async function store(
   contractData: any,// criar type. Type antigo ICreateContract
   requester: IRequester
 ) {
+
+  
+
   await validator(contractData);
   await podeLicenciarClientes(requester);
-  //console.log(contractData)
 
+  //console.log(contractData)
+ 
   if(requester.p.toString() === '**'){
 
    try {
@@ -60,8 +63,12 @@ export default async function store(
       contrato.adminEmail = contractData.adminEmail;
       contrato.cliente = cliente;
       contrato.id_ifitness_web = 0;
-
+      contrato.plano = contractData.plano.toLowerCase();
+      contrato.tipo = contractData.tipo;
+      
+   
       if (contractData.contratoid) {
+        contrato.contratosSecundarios = [contractData.contratoid]
         contrato.contrato = await getRepository(Contrato).findOne({
           id: contractData.contratoid,
         });
@@ -132,7 +139,6 @@ export default async function store(
       };  
     };
 
-
   };
 
   // @todo: validar cliente, produto e revenda
@@ -177,8 +183,14 @@ export default async function store(
     contrato.adminEmail = contractData.adminEmail;
     contrato.cliente = cliente;
     contrato.id_ifitness_web = 0;
-  
+    contrato.plano = contractData.plano.toLowerCase();
+    contrato.tipo = contractData.tipo
+    
+    
+    
+    
     if (contractData.contratoid) {
+      contrato.contratosSecundarios = [contractData.contratoid]
       contrato.contrato = await getRepository(Contrato).findOne({
         id: contractData.contratoid,
       });
@@ -201,7 +213,7 @@ export default async function store(
         saveContract.status = 'T' as any;
 
       }
-    const createInExternalApi= await CreateContractApi(
+    /*const createInExternalApi= await CreateContractApi(
       {
         nome: revenda.razaosocial,
         prefixo: saveContract.sufixo,
@@ -234,18 +246,17 @@ export default async function store(
       //console.log(createInExternalApi)
       return createInExternalApi;
       
-    };
+    };*/
 
     saveContract.status = 'ativo';
-    contrato.id_ifitness_web = createInExternalApi.cod_contrato;
+    //contrato.id_ifitness_web = createInExternalApi.cod_contrato;
     const newContract = await getConnection().manager.save(contrato, { reload: true });
     
 
-    
-  
     return newContract;
 
   } catch (error) {
+    console.log(error)
     return {
       error:true,
       message:error

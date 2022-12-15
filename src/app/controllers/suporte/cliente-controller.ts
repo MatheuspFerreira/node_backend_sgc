@@ -18,6 +18,7 @@ export default {
   },
 
   async obtain({ params, user: requester }: RequestCustom, res: Response) {
+    
     const cliente = await obtainCliente(
       {
         codcliente: params.codcliente as unknown as number,

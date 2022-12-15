@@ -74,6 +74,14 @@ export default class Contrato {
   })
   versao: VersionType;
 
+  @Column({
+    name: 'plano',
+    type: 'enum',
+    enum: ['anual', 'mensal'],
+    default: 'mensal',
+  })
+  plano: String;
+
   @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;
 

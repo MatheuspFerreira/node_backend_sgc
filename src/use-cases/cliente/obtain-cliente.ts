@@ -18,6 +18,7 @@ export default async function listClientes(
   await podeConsultarClientes(requester);
 
   const codrevenda = useCodigoRevenda(requester);
+  
 
   const cliente = await getRepository(Cliente).findOne({
     where: {
@@ -25,6 +26,7 @@ export default async function listClientes(
     },
     relations: ['contratos'],
   });
+ //console.log(cliente)
 
   if (!cliente) {
     throw new NotFoundError('Cliente não encontrado');

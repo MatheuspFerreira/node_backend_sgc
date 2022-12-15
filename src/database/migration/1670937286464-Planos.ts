@@ -1,6 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class createTableContracts1630776736652 implements MigrationInterface {
+
+
+  
+
+export class Planos1670937286464 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
@@ -66,6 +70,11 @@ export class createTableContracts1630776736652 implements MigrationInterface {
             enum: ['anual', 'mensal'],
             default: `'mensal'`,
           },
+          {
+            name: 'contratoid',
+            type: 'integer',
+            isNullable: true,
+          },
         ],
       })
     );
@@ -75,3 +84,6 @@ export class createTableContracts1630776736652 implements MigrationInterface {
     await queryRunner.dropTable('contratos');
   }
 }
+
+
+

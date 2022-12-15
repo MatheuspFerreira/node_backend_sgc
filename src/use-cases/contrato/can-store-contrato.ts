@@ -22,6 +22,8 @@ export default async function canStore({
     },
     relations: ['contratos', 'contratos.contrato'],
   });
+
+  console.log(cliente)
   
   if(requester.p.toString() === '**'){ // se for atendente da inspell, pode criar contrato mesmo pertecendo a outra revenda
     
@@ -30,6 +32,7 @@ export default async function canStore({
   }
   // Se é um cliente já licenciado por outra revenda
   await hasActiveContracts(cliente, requester.id);
+  console.log(cliente)
 
   // Retorna cliente apenas se ele pode criar novo contrato
   // Se o cliente tiver contratos ativos, com certeza

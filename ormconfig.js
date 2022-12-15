@@ -9,8 +9,9 @@ const entitiesPath = join(
 );
 
 const migrationsPath = join(__dirname, 'dist', 'database', 'migration', '*.js');
-
 const migrationsDir = join(__dirname, 'src', 'database', 'migration');
+
+// const migrationsDir = ("./src/database/migration");
 
 module.exports = {
   name: 'default',

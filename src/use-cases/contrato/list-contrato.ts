@@ -20,7 +20,7 @@ export default async function listContract({
 
    // Se for Atendente Inspell, consegue acessar todos os contratos cadastrados no banco de dados.
   if(requester.p.toString() === '**'){
-    console.log('Listando contratos')
+    //console.log('Listando contratos')
 
     
 

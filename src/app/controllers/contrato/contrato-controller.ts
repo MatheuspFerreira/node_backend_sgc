@@ -56,7 +56,9 @@ export default {
   async store({ body, user: requester }: RequestCustom, res: Response) {
     const contract = await storeContract(body, requester) as any;
     if(contract.error){
+      console.log(contract)
       return res.status(400).send(contract);
+      
     };    
 
     return res.status(201).json(contract);

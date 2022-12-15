@@ -21,7 +21,7 @@ export class removeColumnPeriodicidadeFromContratos1642345909131
       new TableColumn({
         name: 'periodicidade',
         type: 'enum',
-        enum: ['mensal', 'anual', 'custom'],
+        enum: ['mensal', 'anual'],
         default: `'mensal'`,
       }),
       new TableColumn({
