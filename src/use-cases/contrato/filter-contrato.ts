@@ -19,33 +19,93 @@ export default async function filterAtendente(
     };
 
     try {
+        console.log(body.status)
        
-        if(body.dataInicio === ''  && body.cliente === '' && body.status !== ''  ){
-        
-           
-            const filtredContract = await getRepository(Contrato).findAndCount({
-                where:{
-                    codrevenda:body.codrevenda,
-                    status:body.status
-        
-                },
-                relations: ['cliente']
-            });
-          
-            if(!filtredContract) {
-                return {               
-                    error:true,
-                    message:'Not Found'
-                              
+        if(body.dataInicio === ''  && body.cliente === '' && body.status !== '' ){
+
+            if(body.status.length === 0 || body.status.includes('Todos') || body.status.length === 3) {
+
+               
+                const filtredContract = await getRepository(Contrato).findAndCount({
+                    where:{
+                        codrevenda:body.codrevenda,
+                
+                    },
+                    relations: ['cliente']
+                });
+    
+                if(!filtredContract) {
+                    return {               
+                        error:true,
+                        message:'Not Found'
+                                      
+                    };
+                
                 };
-        
+    
+                return filtredContract;
+
+                
             };
-           
-            return filtredContract;
-            
+            if(body.status[0] !== 'Todos') {
+                const filtredContract = await getRepository(Contrato).findAndCount({
+                    where:{
+                        codrevenda:body.codrevenda,
+                        status:body.status[0]
+                
+                    },
+                    relations: ['cliente']
+                });
+    
+                if(!filtredContract) {
+                    return {               
+                        error:true,
+                        message:'Not Found'
+                                      
+                    };
+                
+                };
+    
+                return filtredContract;
+
+            };
+            if(body.status.length > 1) {
+                const ArrayContract = [];
+                              
+                for (let i = 0; i < body.status.length; i++) {
+
+                    const filtredContract = await getRepository(Contrato).findAndCount({
+                        where:{
+                            codrevenda:body.codrevenda,
+                            status:body.status[i]
+                
+                        },
+                        relations: ['cliente']
+                    });  
+                                      
+                    if(!filtredContract) {
+                        return {               
+                            error:true,
+                            message:'Not Found'
+                                      
+                        };
+                
+                    };
+
+                    if(filtredContract){
+                        filtredContract[0].map((current:any)=> {
+                            return  ArrayContract.push(current);
+
+                        })
+
+                    }
+                }   
+                return [ArrayContract, ArrayContract.length] 
+
+            }  
         };
 
-        if(body.dataInicio === ''  && body.cliente === '' &&  body.status === ''  ){
+        if(body.dataInicio === ''  && body.cliente === '' &&  body.status.length === 0  ){
             const filtredContract = await getRepository(Contrato).findAndCount({
                 where:{
                     codrevenda:body.codrevenda,
@@ -97,7 +157,7 @@ export default async function filterAtendente(
   
         };
 
-        if(body.cliente === '' && body.status === '' && body.dataInicio !== '' ){
+        if(body.cliente === '' && body.status.length === 0 && body.dataInicio !== '' ){
         
             const filtredContract = await getRepository(Contrato).findAndCount({
             
@@ -123,7 +183,7 @@ export default async function filterAtendente(
   
         };
 
-        if(body.codrevenda === ''  && body.status === ''  && body.dataInicio === ''  ){
+        if(body.codrevenda === ''  && body.status.length === 0  && body.dataInicio === ''  ){
       
             const cliente = await listClientes({busca:body.cliente}, requester);
             let res = [];
@@ -154,10 +214,17 @@ export default async function filterAtendente(
                     callback.cliente = current;
                     delete callback.cliente.contratos;
 
-                    if(!res.includes(callback) && body.status === callback.status){
+                    for (let i = 0; i < body.status.length; i++) {
+                        if(!res.includes(callback) && body.status[i].toLowerCase() === callback.status && body.status[i] !== 'Todos'){
+                            res.push(callback);
+                        }
+                        
+                                            
+                    };
+
+                    if(!res.includes(callback) && body.status.includes('Todos')){
                         res.push(callback);
                     }
-                    return ;
 
                 })
                 return current;
@@ -167,7 +234,7 @@ export default async function filterAtendente(
           
         };
 
-        if( body.status === ''  && body.dataInicio === ''  ){
+        if( body.status.length === 0  && body.dataInicio === ''  ){
       
             const cliente = await listClientes({busca:body.cliente}, requester);
             let res = [];
@@ -189,7 +256,7 @@ export default async function filterAtendente(
           
         };
 
-        if( body.dataInicio === ''  ){
+        if( body.dataInicio === ''  ){ // tds menos a data
       
             const cliente = await listClientes({busca:body.cliente}, requester);
             let res = [];
@@ -198,10 +265,16 @@ export default async function filterAtendente(
                     callback.cliente = current;
                     delete callback.cliente.contratos;
 
-                    if(!res.includes(callback) && body.codrevenda === callback.codrevenda.toString() && body.status === callback.status){
+                    for (let i = 0; i < body.status.length; i++) {
+                        if(!res.includes(callback) && body.status[i].toLowerCase() === callback.status && body.status[i] !== 'Todos' && body.codrevenda === callback.codrevenda.toString()){
+                            res.push(callback);
+                        }
+                                            
+                    };
+
+                    if(!res.includes(callback) && body.status.includes('Todos') && body.codrevenda === callback.codrevenda.toString()){
                         res.push(callback);
                     }
-                    return ;
 
                 })
                 return current;
@@ -211,7 +284,7 @@ export default async function filterAtendente(
           
         };
 
-        if( body.status === ''  && body.codrevenda === '' && body.dataInicio !== '' && body.cliente !== ''){
+        if( body.status.length === 0  && body.codrevenda === '' && body.dataInicio !== '' && body.cliente !== ''){ //data e cliente
       
             const cliente = await listClientes({busca:body.cliente}, requester);
             let res = [];
@@ -236,7 +309,7 @@ export default async function filterAtendente(
           
         };
        
-        const cliente = await listClientes({busca:body.cliente}, requester);
+        const cliente = await listClientes({busca:body.cliente}, requester);// todos as propriedades do filtro
             let res = [];
             cliente.map(current => {
                 current.contratos.map(callback =>{                    
@@ -244,15 +317,19 @@ export default async function filterAtendente(
                     delete callback.cliente.contratos;
                     const date = body.dataInicio.split('/')
                     const formatDate =`${date[2]}-${date[1]}-${date[0]}`
-                    if(!res.includes(callback) 
-                        && body.status === callback.status 
-                        && body.codrevenda === callback.codrevenda.toString() 
-                        && callback.dataInicio.toString() === formatDate
-                    ){
-                        res.push(callback);
-                    }
-                    return ;
 
+                    for (let i = 0; i < body.status.length; i++) {
+                        if(!res.includes(callback) && body.status[i].toLowerCase() === callback.status && body.status[i] !== 'Todos' && body.codrevenda === callback.codrevenda.toString() && callback.dataInicio.toString() === formatDate){
+                            res.push(callback);
+                        }
+                                            
+                    };
+
+                    if(!res.includes(callback) && body.status.includes('Todos') && body.codrevenda === callback.codrevenda.toString() && callback.dataInicio.toString() === formatDate){
+                        res.push(callback);
+                    } 
+                    
+                    return ;
                 })
                 return current;
 

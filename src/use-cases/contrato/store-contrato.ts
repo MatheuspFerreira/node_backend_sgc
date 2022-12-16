@@ -91,7 +91,7 @@ export default async function store(
         //console.log(saveContract.cliente.razaosocial)
         //console.log(saveContract.cliente)
         
-      const createInExternalApi= await CreateContractApi(
+      /*const createInExternalApi= await CreateContractApi(
         {
           nome: revenda.razaosocial,
           prefixo: saveContract.sufixo,
@@ -123,10 +123,10 @@ export default async function store(
       if(createInExternalApi.error || createInExternalApi.result !== true){
         return createInExternalApi;
         
-      };
+      };*/
      
       saveContract.status = 'ativo';
-      contrato.id_ifitness_web = createInExternalApi.cod_contrato;
+      ///contrato.id_ifitness_web = createInExternalApi.cod_contrato;
       const newContract = await getConnection().manager.save(contrato, { reload: true });
  
       return newContract;
